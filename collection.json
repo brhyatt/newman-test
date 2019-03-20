@@ -36,8 +36,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							}
 						],
 						"body": {
@@ -95,17 +95,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://{{userAPI}}.execute-api.us-east-1.amazonaws.com/{{env}}/healthcheck",
+							"raw": "https://api.{{env}}.targetable.io/users/healthcheck",
 							"protocol": "https",
 							"host": [
-								"{{userAPI}}",
-								"execute-api",
-								"us-east-1",
-								"amazonaws",
-								"com"
+								"api",
+								"{{env}}",
+								"targetable",
+								"io"
 							],
 							"path": [
-								"{{env}}",
+								"users",
 								"healthcheck"
 							]
 						},
@@ -114,6 +113,31 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5716abf4-d741-405b-b916-0018bf7de776",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0006c8c0-822a-434e-8558-43cff3613bf8",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					""
+				]
+			}
 		}
 	]
 }
