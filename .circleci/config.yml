@@ -17,12 +17,12 @@ jobs:
           name: Install Newman
           command: 'sudo npm install -g newman'
           
-      - run:
-          name: Working Dir
-          command: 'ls -la'
+    #  - run:
+    #      name: Working Dir
+    #      command: 'ls -la'
 
       # This should go into custom primary image, here's only for the sake of explanation
       - run:
-          name: API Testing for Smoke Suite
+          name: Run Postman API tests
           command: 'newman run ./collection.json --environment ./dev.json -r cli'
  
