@@ -24,5 +24,5 @@ jobs:
       # This should go into custom primary image, here's only for the sake of explanation
       - run:
           name: API Testing for Smoke Suite
-          command: 'newman run ./collection.json --environment ./dev_env.json -r cli'
+          command: 'newman run ./collection.json --environment ./dev.json -r cli'
  
