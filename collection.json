@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "eaab92d3-32e9-401f-a3a4-7a80c5e1a234",
+		"name": "test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "business",
+			"item": [
+				{
+					"name": "list businesses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ae793f1-fe5c-4fb3-b88a-83632e951a1c",
+								"exec": [
+									"//JSON Does Not Contain Error Text",
+									"pm.test(\"Response body should not contain error\", function() {",
+									"    pm.response.to.not.have.jsonBody(\"error\");",
+									"});",
+									"",
+									"//Should return list of Businesses",
+									"pm.test(\"Reponse returns an array of Businesses\", function () {",
+									"    pm.expect(pm.response.json()).to.include.keys(\"result\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.{{env}}.targetable.io/businesses/businesses",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{env}}",
+								"targetable",
+								"io"
+							],
+							"path": [
+								"businesses",
+								"businesses"
+							]
+						},
+						"description": "Return a list of businesses"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "health check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6dcf10ee-3222-492d-bdf7-648dd40db74b",
+								"exec": [
+									"pm.test(\"Health Check Response is OK\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"OK\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.{{env}}.targetable.io/users/healthcheck",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{env}}",
+								"targetable",
+								"io"
+							],
+							"path": [
+								"users",
+								"healthcheck"
+							]
+						},
+						"description": "Health check of User API"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5716abf4-d741-405b-b916-0018bf7de776",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0006c8c0-822a-434e-8558-43cff3613bf8",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					""
+				]
+			}
+		}
+	]
+}
