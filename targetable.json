@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "6778f995-2941-4e95-8576-c45cd4ce532e",
+		"name": "Targetable",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "business-api",
+			"item": [
+				{
+					"name": "list all businesses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "76263bdb-9435-4a15-85e7-b96c2909469f",
+								"exec": [
+									"//JSON Does Not Contain Error Text",
+									"pm.test(\"Response body has no errors\", function() {",
+									"    pm.response.to.not.have.jsonBody(\"error\");",
+									"});",
+									"",
+									"//Should return list of Businesses",
+									"pm.test(\"Reponse returns an array of Businesses\", function () {",
+									"    pm.expect(pm.response.json()).to.include.keys(\"result\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.{{env}}.targetable.io/v1/businesses/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{env}}",
+								"targetable",
+								"io"
+							],
+							"path": [
+								"v1",
+								"businesses",
+								""
+							]
+						},
+						"description": "Return a list of businesses"
+					},
+					"response": []
+				},
+				{
+					"name": "health check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2edaede7-c470-4b3c-a539-2517d8a4162c",
+								"exec": [
+									"pm.test(\"Health Check Response is OK\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"OK\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.{{env}}.targetable.io/v1/businesses/healthcheck",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{env}}",
+								"targetable",
+								"io"
+							],
+							"path": [
+								"v1",
+								"businesses",
+								"healthcheck"
+							]
+						},
+						"description": "Health check of Business API"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{currentAccessTokenBiz}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1536c392-36fb-430f-9481-94c49b697964",
+						"type": "text/javascript",
+						"exec": [
+							"const echoPostRequest = {",
+							"  url: 'https://targetable-staging.auth0.com/oauth/token',",
+							"  method: 'POST',",
+							"  header: 'Content-Type:application/json',",
+							"  body: {",
+							"    mode: 'application/json',",
+							"    raw: JSON.stringify(",
+							"        {",
+							"        \tclient_id:'Krps4FCp3nIz3NNhjR7Xd444BkCLAk3D',",
+							"        \tclient_secret:'jBQ3WxuBzSntaSIGIhbBma6kZkZGbUYxbgH5XOtgKoZ0kUYv3GBKvFHk-2E4ymBp',",
+							"        \taudience:'https://api.targetable.io/businesses',",
+							"        \tscope:'read:businesses',",
+							"        \tgrant_type:'client_credentials'",
+							"        })",
+							"  }",
+							"};",
+							"",
+							"var getToken = true;",
+							"",
+							"//if (!pm.environment.get('accessTokenExpiryBiz') || ",
+							"//    !pm.environment.get('currentAccessTokenBiz')) {",
+							"//    console.log('Token or expiry date are missing')",
+							"//} else if (pm.environment.get('accessTokenExpiryBiz') <= (new Date()).getTime()) {",
+							"//    console.log('Token is expired')",
+							"//} else {",
+							"//    getToken = false;",
+							"//    console.log('Token and expiry date are all good');",
+							"//}",
+							"",
+							"if (getToken === true) {",
+							"    pm.sendRequest(echoPostRequest, function (err, res) {",
+							"    console.log(err ? err : res.json());",
+							"        if (err === null) {",
+							"            console.log('Saving the token and expiry date')",
+							"            var responseJson = res.json();",
+							"            pm.environment.set('currentAccessTokenBiz', responseJson.access_token)",
+							"    ",
+							"            var expiryDate = new Date();",
+							"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);",
+							"            pm.environment.set('accessTokenExpiryBiz', expiryDate.getTime());",
+							"        }",
+							"    });",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ce616e2-ee69-43e2-a42c-4e83bfcd4047",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "user-api",
+			"item": [
+				{
+					"name": "list all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6e511e5-02f1-4dd3-8e7c-61ed06bec7bd",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.{{env}}.targetable.io/v1/users/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{env}}",
+								"targetable",
+								"io"
+							],
+							"path": [
+								"v1",
+								"users",
+								""
+							]
+						},
+						"description": "Return a list of users\n"
+					},
+					"response": []
+				},
+				{
+					"name": "get user logs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.{{env}}.targetable.io/v1/users/auth0|C5c9978d48afbf20f78b089ea/logs/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{env}}",
+								"targetable",
+								"io"
+							],
+							"path": [
+								"v1",
+								"users",
+								"auth0|C5c9978d48afbf20f78b089ea",
+								"logs",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "health check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6dcf10ee-3222-492d-bdf7-648dd40db74b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.{{env}}.targetable.io/v1/users/healthcheck",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{env}}",
+								"targetable",
+								"io"
+							],
+							"path": [
+								"v1",
+								"users",
+								"healthcheck"
+							]
+						},
+						"description": "Health check of User API"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{currentAccessTokenUser}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3b51552c-9258-49b6-b304-39663d1a6665",
+						"type": "text/javascript",
+						"exec": [
+							"const echoPostRequest = {",
+							"  url: 'https://targetable-staging.auth0.com/oauth/token',",
+							"  method: 'POST',",
+							"  header: 'Content-Type:application/json',",
+							"  body: {",
+							"    mode: 'application/json',",
+							"    raw: JSON.stringify(",
+							"        {",
+							"        \tclient_id:'Bjtz959TaUe6crQe4WlMvTeejx80TALU',",
+							"        \tclient_secret:'8XygFRA77tPdN7ZvUBlrpqLJKw1d0cnus59GQDjjayT-3hU_zzzU8XQdTPkYVpBR',",
+							"        \taudience:'https://api.targetable.io/users',",
+							"        \tscope:'read:users',",
+							"        \tgrant_type:'client_credentials'",
+							"        })",
+							"  }",
+							"};",
+							"",
+							"var getToken = true;",
+							"",
+							"//if (!pm.environment.get('accessTokenExpiryUser') || ",
+							"//    !pm.environment.get('currentAccessTokenUser')) {",
+							"//    console.log('Token or expiry date are missing')",
+							"//} else if (pm.environment.get('accessTokenExpiryUser') <= (new Date()).getTime()) {",
+							"//    console.log('Token is expired')",
+							"//} else {",
+							"//    getToken = false;",
+							"//   console.log('Token and expiry date are all good');",
+							"//}",
+							"",
+							"if (getToken === true) {",
+							"    pm.sendRequest(echoPostRequest, function (err, res) {",
+							"    console.log(err ? err : res.json());",
+							"        if (err === null) {",
+							"            console.log('Saving the token and expiry date')",
+							"            var responseJson = res.json();",
+							"                pm.environment.set('currentAccessTokenUser', responseJson.access_token)",
+							"    ",
+							"            // var expiryDate = new Date();",
+							"            // expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);",
+							"            // pm.environment.set('accessTokenExpiryUser', expiryDate.getTime());",
+							"        }",
+							"    });",
+							"}",
+							"",
+							"setTimeout(function(){}, [1500]);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "59faa989-f2b6-4b8a-9c1f-91b9ceb066e6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "store-api",
+			"item": [
+				{
+					"name": "health check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.{{env}}.targetable.io/v1/places/healthcheck",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{env}}",
+								"targetable",
+								"io"
+							],
+							"path": [
+								"v1",
+								"places",
+								"healthcheck"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "places-api",
+			"item": [
+				{
+					"name": "health check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.{{env}}.targetable.io/v1/places/healthcheck",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{env}}",
+								"targetable",
+								"io"
+							],
+							"path": [
+								"v1",
+								"places",
+								"healthcheck"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fee38611-d2cc-43d9-808b-a7dabdb865bb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b953c285-ce83-4244-b8e0-dc0d937912a1",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					""
+				]
+			}
+		}
+	]
+}
