@@ -17,12 +17,8 @@ jobs:
           name: Install Newman
           command: 'sudo npm install -g newman'
           
-    #  - run:
-    #      name: Working Dir
-    #      command: 'ls -la'
-
       # This should go into custom primary image, here's only for the sake of explanation
       - run:
           name: Run Stage Targetable API tests
-          command: 'newman run ./targetable.json --environment ./stage.json -r cli'
+          command: 'newman run https://api.getpostman.com/collections/6778f995-2941-4e95-8576-c45cd4ce532e?apikey=9c67cdddfbc64bc48cbfdd26b8ddc469 --environment stage.json --bail'
  
