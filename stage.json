@@ -1,0 +1,39 @@
+{
+	"id": "12ef2d15-d287-4e4e-9253-836c74abaf10",
+	"name": "Staging",
+	"values": [
+		{
+			"key": "env",
+			"value": "stage",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "accessTokenExpiryBiz",
+			"value": "",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "currentAccessTokenBiz",
+			"value": "",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "currentAccessTokenUser",
+			"value": "",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "accessTokenExpiryUser",
+			"value": "",
+			"description": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2019-04-04T00:48:43.498Z",
+	"_postman_exported_using": "Postman/7.0.7"
+}
