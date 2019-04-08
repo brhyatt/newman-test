@@ -28,6 +28,10 @@ jobs:
     
       # Store test results
       - store_test_results:
-          path: ~/repo/junit/*.xml
+          path: ~/repo/junit/
+ 
+      # Store artifacts
+      #- store_artifacts:
+      #    path: ~/repo/junit/
           
  
