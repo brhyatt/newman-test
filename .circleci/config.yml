@@ -19,7 +19,7 @@ jobs:
   
       - run:
           name: Create Report Directory
-          command: 'sudo mkdir /tmp/junit'
+          command: 'ls -la ~/repo'
     
       # This should go into custom primary image, here's only for the sake of explanation
       - run:
