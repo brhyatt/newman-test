@@ -10,11 +10,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: NPM Ignore
-          command: 'sudo npm i -g npmignore'
-      # This should go into custom primary image, here's only for the sake of explanation
+          name: Install Newman HTML reporter
+          command: 'sudo npm install -g newman-reporter-html'
+      
       - run:
-          name: Install Newman
+          name: Install Newman Package
           command: 'sudo npm install -g newman'
   
       - run:
