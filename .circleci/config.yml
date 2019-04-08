@@ -1,15 +1,12 @@
-version: 2.1
-orbs:
-  newman: postman/newman@1.0.0
-jobs:
-  newman-collection-run:
-    # use the official newman docker image via newman/postman-newman-docker executor
-    executor: newman/postman-newman-docker
-    
-    steps:
-      # checkout step is optional if you are not referencing any files from the project
-   #   - checkout
-      
-      # use newman-run command
-      - newman/newman-run:
-          collection: https://api.getpostman.com/collections/6778f995-2941-4e95-8576-c45cd4ce532e?apikey=9c67cdddfbc64bc48cbfdd26b8ddc469 --environment stage.json --bail
+running-collection:
+    description: Running a collection file with newman
+    usage:
+      version: 2.1
+      orbs:
+        newman: postman/newman@1.0.0
+      jobs:
+        newman-collection-run:
+          executor: newman/postman-newman-docker
+          steps:
+            - newman/newman-run:
+                collection: https://api.getpostman.com/collections/6778f995-2941-4e95-8576-c45cd4ce532e?apikey=9c67cdddfbc64bc48cbfdd26b8ddc469 --environment stage.json --bail
