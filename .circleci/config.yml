@@ -22,8 +22,13 @@ jobs:
           name: Run Stage Targetable API tests
           command: 'newman run https://api.getpostman.com/collections/6778f995-2941-4e95-8576-c45cd4ce532e?apikey=9c67cdddfbc64bc48cbfdd26b8ddc469 --environment stage.json --bail'
       
+      # Save artifacts
+      - store_artifacts:
+          path: /tmp/artifacts
+          destination: build
+          
       # upload test results
       - store_test_results:
-          path: ~/repo/tmp/test-reports
+          path: /tmp/test-reports
           
  
