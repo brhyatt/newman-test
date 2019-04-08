@@ -21,7 +21,7 @@ jobs:
       # This should go into custom primary image, here's only for the sake of explanation
       - run:
           name: Run Stage Targetable API tests
-          command: 'newman run https://api.getpostman.com/collections/6778f995-2941-4e95-8576-c45cd4ce532e?apikey=9c67cdddfbc64bc48cbfdd26b8ddc469 --environment stage.json --reporters junit --reporter-cli-no-summary --reporter-junit-export ~/repo/junit/export_text.xml --bail'
+          command: 'newman run https://api.getpostman.com/collections/6778f995-2941-4e95-8576-c45cd4ce532e?apikey=9c67cdddfbc64bc48cbfdd26b8ddc469 --environment stage.json --reporters junit,cli --reporter-cli-no-summary --reporter-junit-export ~/repo/junit/report.xml --bail'
     
       # Store test results
       - store_test_results:
