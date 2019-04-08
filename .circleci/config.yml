@@ -10,8 +10,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Newman HTML reporter Full
-          command: 'npm install -g newman-reporter-htmlfull'
+          name: Install Newman HTML reporter
+          command: 'npm install -g newman-reporter-html'
       
       - run:
           name: Install Newman Package
