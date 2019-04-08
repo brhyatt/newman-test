@@ -23,16 +23,7 @@ jobs:
           command: 'newman run https://api.getpostman.com/collections/6778f995-2941-4e95-8576-c45cd4ce532e?apikey=9c67cdddfbc64bc48cbfdd26b8ddc469 --environment stage.json --reporters junit --reporter-cli-no-summary --reporter-junit-export /tmp/junit/export_text.xml --bail'
     
       # Store test results
-      #- store_test_results:
-      #    path: /tmp/junit
-          
-      # Save artifacts
-      #- store_artifacts:
-      #    path: /newman
-      #    destination: build
-          
-      # upload test results
-       - upload_test_results:
+      - store_test_results:
           path: /tmp/junit/*.xml
           
  
