@@ -15,8 +15,8 @@ jobs:
           command: 'sudo npm install -g newman'
 
       - run:
-          name: Install Newman Junit reporter
-          command: 'sudo npm install -g newman-reporter-junitfull'
+          name: Install Newman Junit Reporter
+          command: 'sudo npm install -g newman-reporter-junit'
           
       - run:
           name: Create Report Directory
